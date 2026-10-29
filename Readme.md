@@ -54,7 +54,6 @@
 - [RRVBench](#rrvbench)
 - [Quick Start](#quick-start)
 - [Model Zoo](#model-zoo)
-- [Limitations](#limitations)
 - [Citation](#citation)
 - [Acknowledgments](#acknowledgments)
 - [License](#license)
@@ -76,6 +75,8 @@ Evaluated on **53 detection benchmarks** and **14 localization benchmarks**, Def
 | Image-domain average | 80.4 | **90.9** |
 | Video-domain average | 57.6 | **95.7** |
 | Physical forgery (image) | 50.7 | **87.2** |
+| Physical forgery (video) | 50.7 | **95.8** |
+| ManipulatedBench (zero-shot bACC) | 48.6 | **71.7** |
 | RRVBench (zero-shot bACC) | 52.3 | **95.3** |
 | Detection SOTA | 10 / 53 | **40 / 53** |
 | Localization SOTA | 1 / 14 | **11 / 14** |
@@ -85,7 +86,7 @@ Evaluated on **53 detection benchmarks** and **14 localization benchmarks**, Def
 | | **Image** | **Video** |
 | --- | --- | --- |
 | **Digital** | AI-generated images · DeepFake faces · tampered documents · manipulated natural images | AI-generated videos (GenBuster-ID / GenBuster-OOD / GenBuster++, LOKI, VideoPhy2, RABench, RRVBench) |
-| **Physical** | Face presentation attacks · document recapture / screen attacks | Mask & video replay attacks · document video recapture (CASIA-FASD, DLC2021, SCVD) |
+| **Physical** | Presentation attacks on face and ID-card images · print attacks · replay attacks · mask attacks | Presentation attacks on face and ID-card videos (CASIA-FASD, DLC2021, SCVD) |
 
 Beyond binary decisions, DefakerOne2 also provides **pixel-level tamper localization** on both document and natural images, and emits a **confidence score** with every verdict from a single decision token — the property required for evidence presentation and threshold-based operation in a real moderation pipeline.
 
@@ -95,7 +96,7 @@ Beyond binary decisions, DefakerOne2 also provides **pixel-level tamper localiza
   <img src="assets/model.png" width="80%" alt="DefakerOne2 framework: Vision Encoder + Anomaly Magnifier → LLM → Pred Mask, with Tide-Style Tuning">
 </p>
 
-**Architecture.** DefakerOne2 is built on the **Qwen3.5-2B** multimodal backbone, extended with an **Anomaly Magnifier (AM)** auxiliary encoder based on **DINOMAC** (DINOv3-Large fine-tuned with LoRA adapters and forensic training strategies). Features from the MLLM vision encoder and the AM module are fused by a convolutional mask decoder for pixel-level prediction. Detection uses a fixed, direct prompt — *"Is this image/video real or fake? Answer only Real or Fake."* — so the model commits to its conclusion in a **single output token**, maximizing inference efficiency and the stability of the predicted confidence.
+**Architecture.** DefakerOne2 is built on the **Qwen3.5-2B** multimodal backbone, extended with an **Anomaly Magnifier (AM)** auxiliary encoder based on **[DINOMAC](https://github.com/qcf-568/DINOMAC)** (DINOv3-Large fine-tuned with LoRA adapters and forensic training strategies). Features from the MLLM vision encoder and the AM module are fused by a convolutional mask decoder for pixel-level prediction. Detection uses a fixed, direct prompt — *"Is this image/video real or fake? Answer only Real or Fake."* — so the model commits to its conclusion in a **single output token**, maximizing inference efficiency and the stability of the predicted confidence.
 
 ### 1. Tide-Style Tuning
 
@@ -151,17 +152,7 @@ When the MLLM is confident the content is forged (`p → 1`), the boundary drops
   <img src="assets/data_pipeline.png" width="80%" alt="Data pipeline: 50M heterogeneous corpus, Creative Proposer++, agent-based data generation">
 </p>
 
-The ~50M-sample corpus integrates three provenance tiers — **public datasets**, **engine-synthesized data**, and **manually curated in-the-wild attack samples** — across **nine forensic domains**:
-
-| Domain | Scale | Representative sources |
-| --- | ---: | --- |
-| AI-generated images | ~16M | DiffusionForensics, CommunityForensics, GenImage, LAION, ForenSynths |
-| DeepFake images | ~24.4M | FaceForensics++, CelebDF-v2, DFD, DFDC, ScaleDF, DF40, WDF, MFFI |
-| Tampered documents | ~3.3M | DanceText, DocTamper, OSTF, T-SROIE, RTM, SACP, RIFLC |
-| Forged natural images | ~3.7M | MIML, CASIA-v2, OpenSDID, SIDSet, MS-COCO, So-Fake, tampCOCO |
-| Face anti-spoofing (image / video) | ~1.3M / ~2K | CelebA-Spoof, MSU-MFSD, OULU-NPU |
-| Document anti-spoofing (image / video) | ~0.1M / ~2K | DLC2021, SCVD |
-| AI-generated videos | ~1.3M | GVF, GVD, AIGVDBench, MintVid, DF40, TalkingHeadBench, ComGenVid, GenBuster |
+The ~50M-sample corpus integrates three provenance tiers — **public datasets**, **engine-synthesized data**, and **manually curated in-the-wild attack samples**.
 
 **Creative Proposer++.** An MLLM (Qwen3.5-32B / GPT-5.5) first produces a detailed description of a *real* image or video, which then conditions a generator (GPT-Image-2, SeeDance 2.5, …) to synthesize its counterfeit. Real and fake counterparts are therefore **semantically aligned by construction**, preventing the detector from latching onto content cues irrelevant to forgery, while inheriting the diversity of real-world media instead of template-based prompts.
 
@@ -254,7 +245,7 @@ DefakerOne2 attains the best score on **all eight rows**; the margin over the st
 
 Fake videos in public video-forensics datasets are typically produced by generators released more than a year ago. **RRVBench (Realistic Rumor Video Benchmark)** keeps evaluation aligned with the frontier of AIGC video generation:
 
-- **1,319 authentic videos** (sourced from RABench) + **11,000 synthetic videos** from **11 modern generators**.
+- **1,319 authentic videos** (sourced from [RABench](https://arxiv.org/abs/2608.14391)) + **11,000 synthetic videos** from **11 modern generators**.
 - **Closed-source engines (2,500):** SeeDance-2.5 (700), Happyhorse-1.1 (400), Vidu2-Image (400), Wan-2.6-Flash (400), Wan-2.6 (200), Kling-V3 Video (200), Kling-V3-Omni Video (200).
 - **Open-source engines (8,500):** JoyAI-Echo (3,920), MiniMax-H3 (3,336), HunYuan-Video-1.5 (740), LongCatVideo (504).
 - **Semantic-bias mitigation.** Following Creative Proposer++, Qwen3.5-32B extracts granular descriptions from the authentic source videos, which then condition the generators — so detectors are evaluated on *synthesis artifacts*, not on high-level contextual or thematic cues.
@@ -279,8 +270,6 @@ Nine of the ten non-MLLM detectors score within 48.2–56.2 — statistically in
 | --- | --- | --- | --- |
 | **DefakerOne2** | Qwen3.5-2B | Unified vision-forensics foundation model; two checkpoints — `preview/` (reproduces the paper) and `release/` (trained with more data) | [ModelScope](https://www.modelscope.cn/models/DanceText/DefakerOne2) |
 | **RRVBench** | — | Realistic Rumor Video Benchmark: 1,319 real + 11,000 fake videos from 11 modern generators | [ModelScope](https://www.modelscope.cn/models/DanceText/RRVBench) |
-
-> The technical report additionally evaluates a **DefakerOne2-0.8B** variant for the downstream fine-tuning study; the released weights above correspond to the 2B model.
 
 ### 1. Environment Requirements
 
@@ -324,7 +313,7 @@ The prompt is fixed and direct, so the model commits to its conclusion in a **si
 ### 4. Inference Command
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 MIN_PIXELS=262144 MAX_PIXELS=2408448 --model [model_weight_dir] --val_dataset [val_dataset_jsonl_path] --result_path [prediction_jsonl_save_path] --max_new_token 16 --enable_thinking False --batch_size 1 --num_workers 8
+CUDA_VISIBLE_DEVICES=0 MIN_PIXELS=262144 MAX_PIXELS=2408448 --model [model_weight_dir] --val_dataset [val_dataset_jsonl_path] --result_path [prediction_jsonl_save_path] --max_new_token 16 --enable_thinking False --batch_size 1 --num_workers 8 --logprobs True --top_logprobs 20
 ```
 
 | Argument | Meaning |
@@ -337,6 +326,8 @@ CUDA_VISIBLE_DEVICES=0 MIN_PIXELS=262144 MAX_PIXELS=2408448 --model [model_weigh
 | `--max_new_token` | 16 (fixed) — only the decision token is needed |
 | `--enable_thinking` | `False` (fixed) — detection is a single-token binary decision, no chain-of-thought |
 | `--batch_size` / `--num_workers` | Inference batch size / data-loading workers |
+| `--logprobs` / `--top_logprobs` | Output prediciton logits |
+
 
 ### Reproducing the Evaluation
 
