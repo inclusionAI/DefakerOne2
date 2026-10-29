@@ -218,9 +218,39 @@ DefakerOne2 attains the best score on **all eight rows**; the margin over the st
 
 ## RRVBench
 
-<p align="center">
-  <img src="assets/rrvbench.png" width="100%" alt="Fake video samples from RRVBench, focusing on real-world rumor scenarios">
-</p>
+<table>
+  <tr>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/b1.gif" width="200" height="200" alt="failed to load this example"></td>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/zhan2.gif" width="200" height="200" alt="failed to load this example"></td>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/covid2.gif" width="200" height="200" alt="failed to load this example"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/b2.gif" width="200" height="100" alt="failed to load this example"></td>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/new5.gif" width="200" height="100" alt="failed to load this example"></td>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/o2.gif" width="200" height="100" alt="failed to load this example"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/zhan1.gif" width="200" height="100" alt="failed to load this example"></td>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/new4.gif" width="200" height="100" alt="failed to load this example"></td>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/zf1.gif" width="200" height="100" alt="failed to load this example"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/bing1.gif" width="200" height="100" alt="failed to load this example"></td>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/new1.gif" width="200" height="100" alt="failed to load this example"></td>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/new2.gif" width="200" height="100" alt="failed to load this example"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/bing2.gif" width="200" height="100" alt="failed to load this example"></td>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/new3.gif" width="200" height="100" alt="failed to load this example"></td>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/o1.gif" width="200" height="100" alt="failed to load this example"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/new6.gif" width="200" height="100" alt="failed to load this example"></td>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/covid1.gif" width="200" height="100" alt="failed to load this example"></td>
+    <td><img src="https://github.com/venus-guangjian/Venus-DeFakerOne2/blob/main/videos/zf2.gif" width="200" height="100" alt="failed to load this example"></td>
+  </tr>
+</table>
+
 
 Fake videos in public video-forensics datasets are typically produced by generators released more than a year ago. **RRVBench (Realistic Rumor Video Benchmark)** keeps evaluation aligned with the frontier of AIGC video generation:
 
