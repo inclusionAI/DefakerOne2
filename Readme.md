@@ -92,16 +92,12 @@ Beyond binary decisions, DefakerOne2 also provides **pixel-level tamper localiza
 ## Method
 
 <p align="center">
-  <img src="assets/framework.png" width="100%" alt="DefakerOne2 framework: Vision Encoder + Anomaly Magnifier → LLM → Pred Mask, with Tide-Style Tuning">
+  <img src="assets/model.png" width="80%" alt="DefakerOne2 framework: Vision Encoder + Anomaly Magnifier → LLM → Pred Mask, with Tide-Style Tuning">
 </p>
 
 **Architecture.** DefakerOne2 is built on the **Qwen3.5-2B** multimodal backbone, extended with an **Anomaly Magnifier (AM)** auxiliary encoder based on **DINOMAC** (DINOv3-Large fine-tuned with LoRA adapters and forensic training strategies). Features from the MLLM vision encoder and the AM module are fused by a convolutional mask decoder for pixel-level prediction. Detection uses a fixed, direct prompt — *"Is this image/video real or fake? Answer only Real or Fake."* — so the model commits to its conclusion in a **single output token**, maximizing inference efficiency and the stability of the predicted confidence.
 
 ### 1. Tide-Style Tuning
-
-<p align="center">
-  <img src="assets/tide-style-tuning.png" width="85%" alt="Tide-Style Tuning: Adaptation Ebb → Full-Parameter Flood → Hard-Sample Ebb">
-</p>
 
 | Phase | Trainable scope | Data | DINOMAC noise | Purpose |
 | --- | --- | --- | --- | --- |
@@ -121,7 +117,7 @@ Neither static parameterization dominates — the bottleneck is not the *amount*
 ### 2. Modality Synergism
 
 <p align="center">
-  <img src="assets/modality-synergism.png" width="100%" alt="Joint modality training and entropy-based test adaptation">
+  <img src="assets/shanon.png" width="80%" alt="Joint modality training and entropy-based test adaptation">
 </p>
 
 Which modality carries stronger evidence is **sample-dependent and unknown a priori**: some forgeries concentrate in single-frame texture (over-smoothing, boundary artifacts), others in temporal dynamics (flickering, motion inconsistency, disrupted inter-frame continuity).
@@ -152,7 +148,7 @@ When the MLLM is confident the content is forged (`p → 1`), the boundary drops
 ## Training Data
 
 <p align="center">
-  <img src="assets/data-pipeline.png" width="100%" alt="Data pipeline: 50M heterogeneous corpus, Creative Proposer++, agent-based data generation">
+  <img src="assets/data_pipeline.png" width="80%" alt="Data pipeline: 50M heterogeneous corpus, Creative Proposer++, agent-based data generation">
 </p>
 
 The ~50M-sample corpus integrates three provenance tiers — **public datasets**, **engine-synthesized data**, and **manually curated in-the-wild attack samples** — across **nine forensic domains**:
@@ -251,7 +247,7 @@ Nine of the ten non-MLLM detectors score within 48.2–56.2 — statistically in
 
 | Resource | Backbone | Description | Download |
 | --- | --- | --- | --- |
-| **DefakerOne2** | Qwen3.5-2B + DINOMAC Anomaly Magnifier | Unified vision-forensics foundation model; two checkpoints — `preview/` (reproduces the paper) and `release/` (trained with more data) | [ModelScope](https://www.modelscope.cn/models/DanceText/DefakerOne2) |
+| **DefakerOne2** | Qwen3.5-2B | Unified vision-forensics foundation model; two checkpoints — `preview/` (reproduces the paper) and `release/` (trained with more data) | [ModelScope](https://www.modelscope.cn/models/DanceText/DefakerOne2) |
 | **RRVBench** | — | Realistic Rumor Video Benchmark: 1,319 real + 11,000 fake videos from 11 modern generators | [ModelScope](https://www.modelscope.cn/models/DanceText/RRVBench) |
 
 > The technical report additionally evaluates a **DefakerOne2-0.8B** variant for the downstream fine-tuning study; the released weights above correspond to the 2B model.
@@ -293,7 +289,7 @@ Inference inputs are **JSONL** files, one sample per line.
 {"messages": [{"role": "user", "content": "<video>Is this video real or fake? Answer only Real or Fake"}], "images": ["your_video_path.mp4"]}
 ```
 
-The prompt is fixed and direct, so the model commits to its conclusion in a **single output token** (`Real` / `Fake`); the probability of that token is the reported confidence score, e.g. `"Fake" (Confidence: 0.9786)`.
+The prompt is fixed and direct, so the model commits to its conclusion in a **single output token** (`Real` / `Fake`).
 
 ### 4. Inference Command
 
@@ -304,28 +300,17 @@ CUDA_VISIBLE_DEVICES=0 MIN_PIXELS=262144 MAX_PIXELS=2408448 --model [model_weigh
 | Argument | Meaning |
 | --- | --- |
 | `CUDA_VISIBLE_DEVICES` | GPU(s) used for inference |
-| `MIN_PIXELS` / `MAX_PIXELS` | Lower / upper bound of the dynamic visual-token pixel budget (262144 ≈ 512×512, 2408448 ≈ 1024×2352) |
+| `MIN_PIXELS` / `MAX_PIXELS` | Lower / upper bound of the dynamic visual-token pixel budget (fixed, 262144 ≈ 512×512, 2408448 ≈ 1024×2352) |
 | `--model` | Path to the downloaded weight directory (`preview/` or `release/`) |
 | `--val_dataset` | Path to the input JSONL file |
 | `--result_path` | Path where the prediction JSONL is written |
-| `--max_new_token` | 16 — only the decision token is needed |
-| `--enable_thinking` | `False` — detection is a single-token binary decision, no chain-of-thought |
+| `--max_new_token` | 16 (fixed) — only the decision token is needed |
+| `--enable_thinking` | `False` (fixed) — detection is a single-token binary decision, no chain-of-thought |
 | `--batch_size` / `--num_workers` | Inference batch size / data-loading workers |
-
-**Video inference protocol (Modality Synergism).** Discard the first and last 10% of the clip, sample the middle 80% with Ada-FPS, run both the native-video and the frame-sequence pathway, compute the Shannon entropy of each binary Real/Fake distribution, and adopt the prediction of the lower-entropy (more certain) modality. Binarization uses a standard threshold of **0.5**.
-
-### Fine-tuning on Your Own Forensic Data
-
-DefakerOne2 is designed as a **foundation** model: it reaches stronger generalization on downstream forensic tasks with less task-specific data. The report's in-house experiment fine-tunes the released checkpoint on business attack samples and reads it out at a fixed FPR = 0.001 by threshold adjustment — see [Benchmark Results](#benchmark-results) for the comparison against InternVL2-2B, Qwen3.5-2B, SwinTransformer, and DINO-MAC under an identical data budget.
 
 ### Reproducing the Evaluation
 
 Evaluation covers 53 detection benchmarks and 14 localization benchmarks. Use the `preview/` checkpoint to reproduce the numbers in the technical report. RRVBench scores should be computed as the macro-average of per-generator balanced accuracy against the unified 1,319-video authentic set.
-
-## Limitations
-
-- DefakerOne2 is a first attempt at a single unified model for broader vision-forensics coverage. Like all deep models — and indeed human examiners — it can still fail, even on samples whose anomalies are obvious to the eye. Such failures can be reduced by incorporating more targeted training data similar to the cases in question. To mitigate white-box attacks against the deployed online model, only a small subset of outdated in-house data is used for training.
-- Owing to limited computational resources, the segmentation module is trained **exclusively on regionally tampered samples**; neither authentic nor fully-generated samples are included. The segmentation prediction may therefore be inconsistent with the classification prediction — in such cases **the classification prediction takes precedence**, since the mask is designed only to highlight cues in media already suspected of being forged.
 
 ## Citation
 
