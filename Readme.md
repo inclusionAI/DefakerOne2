@@ -104,7 +104,7 @@ Beyond binary decisions, DefakerOne2 also provides **pixel-level tamper localiza
 | --- | --- | --- | --- | --- |
 | **① Adaptation Ebb** | LoRA adapter (backbone frozen) | Initial ~15M | light | Low-cost warm-up; adapts Qwen3.5 to forensics while preserving world knowledge for implicit semantic reasoning |
 | **② Full-Parameter Flood** | All parameters (LoRA merged into backbone) | Full ~40M | medium | Releases the whole parameter budget to fit the large-scale heterogeneous corpus |
-| **③ Hard-Sample Ebb** | Fresh LoRA adapter (backbone frozen) | New / hard ~40M | heavy | Acts as an implicit regularizer; steers the model to hard and newly collected samples at low continued-training cost |
+| **③ Hard-Sample Ebb** | Fresh LoRA adapter (backbone frozen) | Full + New / hard ~40M | heavy | Acts as an implicit regularizer; steers the model to hard and newly collected samples at low continued-training cost |
 
 Progressively intensifying adversarial noise discourages memorization of trivially easy samples and improves robustness. Ablation (Table 20 of the report):
 
