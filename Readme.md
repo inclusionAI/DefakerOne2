@@ -5,7 +5,7 @@
 ---
 
 <p align="center">
-  <a href="docs/Venus-DefakerOne2.pdf">📄 Technical Report</a> •
+  <a href="assets/Venus-DefakerOne2.pdf">📄 Technical Report</a> •
   <a href="https://venus-guangjian.github.io/Venus-DeFakerOne2/">🌐 Project Page</a> •
   <a href="#overview">✨ Overview</a> •
   <a href="#benchmark-results">📊 Results</a> •
@@ -21,7 +21,7 @@
 
 <p align="center">
   <b>GuangJian Team, Ant Group</b><br>
-  Technical Committee on Digital Media Forensics and Security, CSIG
+  <b>Technical Committee on Digital Media Forensics and Security, CSIG</b>
 </p>
 
 <p align="center">
@@ -32,17 +32,17 @@
 </p>
 
 <p align="center">
-  <img src="assets/teaser.png" width="100%" alt="DefakerOne2 expands defense coverage along both the forgery-form and media-type dimensions">
+  <img src="assets/teaser.png" width="68%" alt="DefakerOne2 expands defense coverage along both the forgery-form and media-type dimensions">
 </p>
 
-*DefakerOne2 significantly expands defense coverage along both the **forgery-form** (digital → physical) and **media-type** (image → video) dimensions, and consistently outperforms its predecessor DefakerOne and existing state-of-the-art detectors across all image and video forensic domains.*
+*DefakerOne2 significantly expands defense coverage along both the **forgery-form** (digital → digital + physical) and **media-type** (image → image + video) dimensions, and consistently outperforms its predecessor DefakerOne and existing state-of-the-art detectors across all image and video forensic domains.*
 
 **DefakerOne2** is a unified vision-forensics foundation model that brings AI-generated content detection, DeepFake face detection, document tampering detection, natural-image manipulation detection, face/document anti-spoofing, and AI-generated video detection into **one 2B-parameter model** — covering the full matrix of **{digital, physical} × {image, video}**.
 
 ## Release
 
+- **2026-10-31:** Technical report and [project page](https://venus-guangjian.github.io/Venus-DeFakerOne2/) are available.
 - **2026-10-29:** DefakerOne2 model weights are released on [ModelScope](https://www.modelscope.cn/models/DanceText/DefakerOne2); the RRVBench benchmark is released on [ModelScope](https://www.modelscope.cn/models/DanceText/RRVBench).
-- **2026-09-01:** Technical report and [project page](https://venus-guangjian.github.io/Venus-DeFakerOne2/) are available.
 
 ## Contents
 
@@ -77,14 +77,14 @@ Evaluated on **53 detection benchmarks** and **14 localization benchmarks**, Def
 | Video-domain average | 57.6 | **95.7** |
 | Physical forgery (image) | 50.7 | **87.2** |
 | RRVBench (zero-shot bACC) | 52.3 | **95.3** |
-| Detection SOTA | — | **40 / 53** |
-| Localization SOTA | — | **11 / 14** |
+| Detection SOTA | 10 / 53 | **40 / 53** |
+| Localization SOTA | 1 / 14 | **11 / 14** |
 
 ## Capability Coverage
 
 | | **Image** | **Video** |
 | --- | --- | --- |
-| **Digital** | AI-generated images · DeepFake faces · tampered documents · manipulated natural images | AI-generated videos (GenBuster-ID/OOD/++, LOKI, VideoPhy2, RABench, RRVBench) |
+| **Digital** | AI-generated images · DeepFake faces · tampered documents · manipulated natural images | AI-generated videos (GenBuster-ID / GenBuster-OOD / GenBuster++, LOKI, VideoPhy2, RABench, RRVBench) |
 | **Physical** | Face presentation attacks · document recapture / screen attacks | Mask & video replay attacks · document video recapture (CASIA-FASD, DLC2021, SCVD) |
 
 Beyond binary decisions, DefakerOne2 also provides **pixel-level tamper localization** on both document and natural images, and emits a **confidence score** with every verdict from a single decision token — the property required for evidence presentation and threshold-based operation in a real moderation pipeline.
