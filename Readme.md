@@ -41,7 +41,7 @@
 
 ## Release
 
-- **2026-10-31:** Technical report and [project page](https://venus-guangjian.github.io/Venus-DeFakerOne2/) are available.
+- **2026-10-31:** [Technical report](https://github.com/inclusionAI/DefakerOne2/blob/main/assets/DefakeOne2_paper.pdf) and [project page](https://venus-guangjian.github.io/Venus-DeFakerOne2/) are available.
 - **2026-10-29:** DefakerOne2 model weights are released on [ModelScope](https://www.modelscope.cn/models/DanceText/DefakerOne2); the RRVBench benchmark is released on [ModelScope](https://www.modelscope.cn/models/DanceText/RRVBench).
 
 ## Contents
