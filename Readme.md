@@ -328,6 +328,23 @@ CUDA_VISIBLE_DEVICES=0 MIN_PIXELS=262144 MAX_PIXELS=2408448 --model [model_weigh
 | `--batch_size` / `--num_workers` | Inference batch size / data-loading workers |
 | `--logprobs` / `--top_logprobs` | Output prediciton logits |
 
+### Obtaining Real / Fake Binary Prediction Scores
+
+Example line from the prediction jsonl (input)
+```
+{"messages": [{"role": "user", "content": "<image>Is this image real or fake? Answer only Real or Fake"}], "images": ["705b29269119a6e03d08f5d1456c7d4a.jpg"], "response": "<think>\n\n</think>\n\nReal", "labels": null, "logprobs": {"content": [{"token": "Real", "logprob": -0.006730742286890745, "bytes": [82, 101, 97, 108], "top_logprobs": [{"token": "Real", "logprob": -0.006730742286890745, "bytes": [82, 101, 97, 108]}, {"token": "Fake", "logprob": -5.006730556488037, "bytes": [70, 97, 107, 101]}, {"token": " Real", "logprob": -11.256731033325195, "bytes": [32, 82, 101, 97, 108]}, {"token": "real", "logprob": -13.506731033325195, "bytes": [114, 101, 97, 108]}, {"token": "_real", "logprob": -14.506731033325195, "bytes": [95, 114, 101, 97, 108]}, {"token": "-real", "logprob": -15.256731033325195, "bytes": [45, 114, 101, 97, 108]}, {"token": " real", "logprob": -15.506731033325195, "bytes": [32, 114, 101, 97, 108]}, {"token": " Fake", "logprob": -17.131731033325195, "bytes": [32, 70, 97, 107, 101]}, {"token": " REAL", "logprob": -17.631731033325195, "bytes": [32, 82, 69, 65, 76]}, {"token": "REAL", "logprob": -17.756731033325195, "bytes": [82, 69, 65, 76]}, {"token": "实", "logprob": -17.756731033325195, "bytes": [229, 174, 158]}, {"token": "fake", "logprob": -18.006731033325195, "bytes": [102, 97, 107, 101]}, {"token": "_Real", "logprob": -18.256731033325195, "bytes": [95, 82, 101, 97, 108]}, {"token": ".Real", "logprob": -18.381731033325195, "bytes": [46, 82, 101, 97, 108]}, {"token": " fake", "logprob": -19.256731033325195, "bytes": [32, 102, 97, 107, 101]}, {"token": " reale", "logprob": -19.256731033325195, "bytes": [32, 114, 101, 97, 108, 101]}, {"token": ".real", "logprob": -19.881731033325195, "bytes": [46, 114, 101, 97, 108]}, {"token": "(real", "logprob": -20.506731033325195, "bytes": [40, 114, 101, 97, 108]}, {"token": " reali", "logprob": -20.881731033325195, "bytes": [32, 114, 101, 97, 108, 105]}, {"token": " reales", "logprob": -21.506731033325195, "bytes": [32, 114, 101, 97, 108, 101, 115]}]}, {"token": "<|im_end|>", "logprob": 0.0, "bytes": [60, 124, 105, 109, 95, 101, 110, 100, 124, 62], "top_logprobs": [{"token": "<|im_end|>", "logprob": 0.0, "bytes": [60, 124, 105, 109, 95, 101, 110, 100, 124, 62]}, {"token": "�", "logprob": -20.6875, "bytes": [239, 191, 189]}, {"token": "<|endoftext|>", "logprob": -20.6875, "bytes": [60, 124, 101, 110, 100, 111, 102, 116, 101, 120, 116, 124, 62]}, {"token": "�", "logprob": -20.875, "bytes": [239, 191, 189]}, {"token": " �", "logprob": -20.9375, "bytes": [32, 239, 191, 189]}, {"token": "¹", "logprob": -20.9375, "bytes": [194, 185]}, {"token": "\n\n", "logprob": -21.0625, "bytes": [10, 10]}, {"token": "<tool_call>", "logprob": -21.125, "bytes": [60, 116, 111, 111, 108, 95, 99, 97, 108, 108, 62]}, {"token": ",", "logprob": -21.1875, "bytes": [44]}, {"token": "<think>", "logprob": -21.25, "bytes": [60, 116, 104, 105, 110, 107, 62]}, {"token": "`", "logprob": -21.375, "bytes": [96]}, {"token": "<br", "logprob": -21.6875, "bytes": [60, 98, 114]}, {"token": "</think>", "logprob": -21.9375, "bytes": [60, 47, 116, 104, 105, 110, 107, 62]}, {"token": ".", "logprob": -22.0, "bytes": [46]}, {"token": "</", "logprob": -22.0, "bytes": [60, 47]}, {"token": " præ", "logprob": -22.125, "bytes": [32, 112, 114, 195, 166]}, {"token": "�", "logprob": -22.1875, "bytes": [239, 191, 189]}, {"token": "�", "logprob": -22.25, "bytes": [239, 191, 189]}, {"token": "\\u", "logprob": -22.25, "bytes": [92, 117]}, {"token": "²", "logprob": -22.3125, "bytes": [194, 178]}]}]}}
+```
+
+Run the command
+```
+python logprob2score.py --input [your input jsonl path] --output [new jsonl save path]
+```
+
+Example line from the processed jsonl (output)
+```
+{"file_path": 705b29269119a6e03d08f5d1456c7d4a.jpg, "p_fake": 0.12, "p_real": 0.88}
+```
+
 
 ### Reproducing the Evaluation
 
