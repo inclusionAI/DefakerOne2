@@ -328,7 +328,7 @@ CUDA_VISIBLE_DEVICES=0 MIN_PIXELS=262144 MAX_PIXELS=2408448 --model [model_weigh
 | `--batch_size` / `--num_workers` | Inference batch size / data-loading workers |
 | `--logprobs` / `--top_logprobs` | Output prediciton logits |
 
-### Obtaining Real / Fake Binary Prediction Scores
+### 5. Obtaining Real / Fake Binary Prediction Scores
 
 Example line from the prediction jsonl (input)
 ```
@@ -346,7 +346,7 @@ Example line from the processed jsonl (output)
 ```
 
 
-### Reproducing the Evaluation
+### 6. Reproducing the Evaluation
 
 Evaluation covers 53 detection benchmarks and 14 localization benchmarks. Use the `preview/` checkpoint to reproduce the numbers in the technical report. RRVBench scores should be computed as the macro-average of per-generator balanced accuracy against the unified 1,319-video authentic set.
 
