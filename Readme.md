@@ -283,16 +283,27 @@ pip install torch==2.9.0 torchvision==0.24.0 ms-swift=4.1.0 numpy==1.26.0 scipy=
 
 ### 2. Model Download
 
-```bash
-modelscope download --model DanceText/DefakerOne2 --local_dir [target_save_path]
-```
-
 Two checkpoints are provided under the download directory:
 
 | Directory | Description |
 | --- | --- |
 | `preview/` | **DefakerOne2-preview** — can be used for reproducing the scores reported in the paper. |
 | `release/` | **DefakerOne2-release** — trained with more data; expected to perform better in most cases. |
+
+Option 1: Download the full project:
+```bash
+modelscope download --model DanceText/DefakerOne2 --local_dir [target_save_path]
+```
+
+Option 2: Download the preview model:
+```bash
+modelscope download --model DanceText/DefakerOne2 --include preview* --local_dir [target_save_path]
+```
+
+Option 3: Download the release model:
+```bash
+modelscope download --model DanceText/DefakerOne2 --include release* --local_dir [target_save_path]
+```
 
 ### 3. Inference Data Format
 
