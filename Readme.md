@@ -356,16 +356,14 @@ Evaluation covers 53 detection benchmarks and 14 localization benchmarks. Use th
 If you use DefakerOne2, RRVBench, or any part of this repository in your research, please cite the technical report:
 
 ```bibtex
-@article{guangjian2026defakerone2,
-  title   = {Venus-DefakerOne2: A Vision-Forensics Foundation Model
-             with Broader Coverage},
-  author  = {Qu, Chenfan and Liang, Yachao and Fang, Mingqi and Xie, Jiangwei
-             and Chang, Zheng and Wang, Zhenming and Zhang, Baoyue and
-             Jin, Fanli and Jiang, Changjiang and Li, Junchi and Wang, Haoyue
-             and Zhu, Xuekang and others},
-  journal = {GuangJian Team, Ant Group --- Technical Report},
-  year    = {2026},
-  note    = {\url{https://github.com/inclusionAI/DefakerOne2}}
+@misc{qu2026venusdefakerone2visionforensicsfoundationmodel,
+      title={Venus-DefakerOne2: A Vision-Forensics Foundation Model with Broader Coverage}, 
+      author={Chenfan Qu and Yachao Liang and Mingqi Fang and Jiangwei Xie and Zhenming Wang and Baoyue Zhang and Changjiang Jiang and Zheng Chang and Fanli Jin and Xuekang Zhu and Kaiwen Feng and Junchi Li and Weihong Zhang and Haoyue Wang and Chenfeng Zhang and Yinan Xia and Fangming Cui and Dong Fan and Jingjing Liu and Tianyi Zhang and Luobin Chen and Ji-Zhe Zhou and Sheng Li and Wei Wang and Bin Li and Ran He and Xinpeng Zhang and Linna Zhou and Jian Liu and Weiqiang Wang},
+      year={2026},
+      eprint={2610.37918},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2610.37918}, 
 }
 ```
 
