@@ -30,7 +30,7 @@
   <a href="https://www.modelscope.cn/models/DanceText/DefakerOne2"><img src="https://img.shields.io/badge/ModelScope-DefakerOne2-624AFF" alt="ModelScope Model"></a>
   <a href="https://www.modelscope.cn/models/DanceText/RRVBench"><img src="https://img.shields.io/badge/ModelScope-RRVBench-624AFF" alt="ModelScope RRVBench"></a>
   <a href="https://venus-guangjian.github.io/Venus-DeFakerOne2/"><img src="https://img.shields.io/badge/Project-Page-success" alt="Project Page"></a>
-  <a href="https://github.com/inclusionAI/DefakerOne2"><img src="https://img.shields.io/badge/GitHub-Code-181717?logo=github" alt="GitHub"></a>
+  <!-- <a href="https://github.com/inclusionAI/DefakerOne2"><img src="https://img.shields.io/badge/GitHub-Code-181717?logo=github" alt="GitHub"></a> -->
 </p>
 
 <p align="center">
