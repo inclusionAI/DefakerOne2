@@ -25,11 +25,12 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/inclusionAI/DefakerOne2"><img src="https://img.shields.io/badge/GitHub-Code-181717?logo=github" alt="GitHub"></a>
+  <a href="https://arxiv.org/abs/2610.37918"><img src="https://img.shields.io/badge/ArXiv-2610.37918-B31B1B?logo=arxiv" alt="ArXiv Paper"></a>
   <a href="https://huggingface.co/qcf568/DefakerOne2"><img src="https://img.shields.io/badge/HuggingFace-DefakerOne2-FFD21E?logo=huggingface" alt="Hugging Face Model"></a>
   <a href="https://www.modelscope.cn/models/DanceText/DefakerOne2"><img src="https://img.shields.io/badge/ModelScope-DefakerOne2-624AFF" alt="ModelScope Model"></a>
   <a href="https://www.modelscope.cn/models/DanceText/RRVBench"><img src="https://img.shields.io/badge/ModelScope-RRVBench-624AFF" alt="ModelScope RRVBench"></a>
   <a href="https://venus-guangjian.github.io/Venus-DeFakerOne2/"><img src="https://img.shields.io/badge/Project-Page-success" alt="Project Page"></a>
+  <a href="https://github.com/inclusionAI/DefakerOne2"><img src="https://img.shields.io/badge/GitHub-Code-181717?logo=github" alt="GitHub"></a>
 </p>
 
 <p align="center">
