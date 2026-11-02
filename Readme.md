@@ -26,6 +26,7 @@
 
 <p align="center">
   <a href="https://github.com/inclusionAI/DefakerOne2"><img src="https://img.shields.io/badge/GitHub-Code-181717?logo=github" alt="GitHub"></a>
+  <a href="https://huggingface.co/qcf568/DefakerOne2"><img src="https://img.shields.io/badge/HuggingFace-DefakerOne2-FFD21E?logo=huggingface" alt="Hugging Face Model"></a>
   <a href="https://www.modelscope.cn/models/DanceText/DefakerOne2"><img src="https://img.shields.io/badge/ModelScope-DefakerOne2-624AFF" alt="ModelScope Model"></a>
   <a href="https://www.modelscope.cn/models/DanceText/RRVBench"><img src="https://img.shields.io/badge/ModelScope-RRVBench-624AFF" alt="ModelScope RRVBench"></a>
   <a href="https://venus-guangjian.github.io/Venus-DeFakerOne2/"><img src="https://img.shields.io/badge/Project-Page-success" alt="Project Page"></a>
@@ -42,7 +43,7 @@
 ## Release
 
 - **2026-10-30:** [Technical report](https://github.com/inclusionAI/DefakerOne2/blob/main/assets/DefakeOne2_paper.pdf) and [project page](https://venus-guangjian.github.io/Venus-DeFakerOne2/) are available.
-- **2026-10-29:** DefakerOne2 model weights are released on [ModelScope](https://www.modelscope.cn/models/DanceText/DefakerOne2); the RRVBench benchmark is released on [ModelScope](https://www.modelscope.cn/models/DanceText/RRVBench).
+- **2026-10-29:** DefakerOne2 model weights are released on [ModelScope](https://www.modelscope.cn/models/DanceText/DefakerOne2) and [HuggingFace](https://huggingface.co/qcf568/DefakerOne2); the RRVBench benchmark is released on [ModelScope](https://www.modelscope.cn/models/DanceText/RRVBench).
 
 ## Contents
 
