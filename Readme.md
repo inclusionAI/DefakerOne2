@@ -281,6 +281,8 @@ Python **3.12.3**
 pip install torch==2.9.0 torchvision==0.24.0 ms-swift=4.1.0 numpy==1.26.0 scipy==1.11.3 scikit-learn==1.3.2 torchao==0.16.0
 ```
 
+Or any other environment that can run Qwen3.5 image/video inference.
+
 ### 2. Model Download
 
 Two checkpoints are provided under the download directory:
