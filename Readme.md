@@ -332,7 +332,7 @@ python data2jsonl.py --input_dir [your_image_dir] --type image --output_jsonl [o
 
 Video
 ```
-python make_jsonl.py --input_dir [your_video_dir] --type video --output_jsonl [output_jsonl_path] --suffix [Optional, e.g. .mp4]
+python data2jsonl.py --input_dir [your_video_dir] --type video --output_jsonl [output_jsonl_path] --suffix [Optional, e.g. .mp4]
 ```
 
 ### 4. Inference Command
