@@ -36,7 +36,7 @@ def main():
         exts = {suffix}
 
     files = [
-        os.path.join(args.input_dir, f)
+        os.path.abspath(os.path.join(args.input_dir, f))
         for f in sorted(os.listdir(args.input_dir))
         if os.path.isfile(os.path.join(args.input_dir, f))
         and os.path.splitext(f)[1].lower() in exts
