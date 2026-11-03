@@ -3,8 +3,8 @@ import json
 import argparse
 from tqdm import tqdm
 
-IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".bmp", ".webp", ".tif"}
-VIDEO_EXTS = {".mp4", ".avi", ".mov", ".mkv", ".webm", ".flv", ".wmv", ".mpeg", ".mpg", ".gif"}
+IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
+VIDEO_EXTS = {".mp4", ".avi", ".mov", ".mkv", ".webm", ".flv", ".wmv", ".mpeg", ".mpg"}
 
 
 def main():
@@ -12,6 +12,12 @@ def main():
     parser.add_argument("--input_dir", required=True, type=str)
     parser.add_argument("--type", required=True, choices=["image", "video"])
     parser.add_argument("--output_jsonl", required=True, type=str)
+    parser.add_argument(
+        "--suffix",
+        type=str,
+        default=None,
+        help="指定文件后缀，如 .jpg / jpg / .mp4；默认 None 表示使用内置类型后缀集合"
+    )
     args = parser.parse_args()
 
     if args.type == "image":
@@ -22,6 +28,12 @@ def main():
         exts = VIDEO_EXTS
         prompt = "<video>Is this video real or fake? Answer only Real or Fake"
         media_key = "videos"
+
+    if args.suffix is not None:
+        suffix = args.suffix.lower()
+        if not suffix.startswith("."):
+            suffix = "." + suffix
+        exts = {suffix}
 
     files = [
         os.path.join(args.input_dir, f)
