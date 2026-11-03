@@ -318,10 +318,22 @@ Inference inputs are **JSONL** files, one sample per line.
 **Video**
 
 ```json
-{"messages": [{"role": "user", "content": "<video>Is this video real or fake? Answer only Real or Fake"}], "images": ["your_video_path.mp4"]}
+{"messages": [{"role": "user", "content": "<video>Is this video real or fake? Answer only Real or Fake"}], "videos": ["your_video_path.mp4"]}
 ```
 
 The prompt is fixed and direct, so the model commits to its conclusion in a **single output token** (`Real` / `Fake`).
+
+**Script to create the inference jsonl:**
+
+Image
+```
+python data2jsonl.py --input_dir [your_image_dir] --type image --output_jsonl [output_jsonl_path] --suffix [Optional, e.g. .png, .jpg]
+```
+
+Video
+```
+python make_jsonl.py --input_dir [your_video_dir] --type video --output_jsonl [output_jsonl_path] --suffix [Optional, e.g. .mp4]
+```
 
 ### 4. Inference Command
 
