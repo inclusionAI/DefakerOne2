@@ -371,9 +371,25 @@ Example line from the processed jsonl (output)
 ```
 {"file_path": 705b29269119a6e03d08f5d1456c7d4a.jpg, "p_fake": 0.12, "p_real": 0.88}
 ```
+### 6. Segmentation Inference
+
+Option 1: Manipulated image region segmentation with preview model
+```
+python segmentation_infer.py --input_image your_image.jpg --save_dir output_dir --seg_module preview/seg_head.pth --vit_head_dir preview/vit_head --mllm_dir preview
+```
+
+Option 2: Manipulated image region segmentation with release model
+```
+python segmentation_infer.py --input_image your_image.jpg --save_dir output_dir --seg_module release/seg_head.pth --vit_head_dir release/vit_head --mllm_dir release
+```
+
+Then the prediction will be save in output_dir (with the same name as the input image). The prediction can be binarized based on the MLLM's global prediction and confidence.
+```
+Threshold = 0.25+0.5*p_fake
+```
 
 
-### 6. Reproducing the Evaluation
+### 7. Reproducing the Evaluation
 
 Evaluation covers 53 detection benchmarks and 14 localization benchmarks. Use the `preview/` checkpoint to reproduce the numbers in the technical report. RRVBench scores should be computed as the macro-average of per-generator balanced accuracy against the unified 1,319-video authentic set.
 
