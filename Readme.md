@@ -371,7 +371,7 @@ Example line from the processed jsonl (output)
 ```
 {"file_path": 705b29269119a6e03d08f5d1456c7d4a.jpg, "p_fake": 0.12, "p_real": 0.88}
 ```
-### 6. Segmentation Inference
+### 6. Image Manipulation Localization
 
 Option 1: Manipulated image region segmentation with preview model
 ```
