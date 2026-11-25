@@ -416,4 +416,4 @@ DefakerOne2 is built on the **Qwen3.5** multimodal backbone, uses **DINOv3-Large
 ## License
 
 <!-- TODO: 发布前请确认并替换本节 —— 论文与项目主页均未声明许可证 -->
-The open-source code in this repository is licensed under **Apache-2.0**. Model weights are released under the terms specified in their [ModelScope model card](https://www.modelscope.cn/models/DanceText/DefakerOne2). **RRVBench** is released for non-commercial research purposes; third-party datasets and pre-trained components retain their original licenses.
+The open-source code in this repository is licensed under **Apache-2.0**. Model weights are released under the **Apache-2.0** license. **RRVBench** is released for non-commercial research purposes; third-party datasets and pre-trained components retain their original licenses.
